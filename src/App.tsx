@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColumnsContainer } from "./containers2";
+import { ColumnsContainer } from "./containers";
 import "./App.css";
 
 function App() {

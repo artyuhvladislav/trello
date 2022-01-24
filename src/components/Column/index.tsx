@@ -1,19 +1,20 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
-
-import { AddFormContainer } from "../../containers2";
-import { CardContainer } from "../../containers2";
+import { AddFormContainer } from "../../containers";
+import { CardContainer } from "../../containers";
 import clearSvg from "../../assets/clear.svg";
-
 import "./Column.scss";
+import {
+  IAddCard,
+  IAddColumn,
+} from "../../redux/reduxSlice";
 interface IColumn {
-  columnIndex?: number,
-  title?: string,
-  cards?: any,
-  onAddColumn: any,
-  onAddCard: any,
-  onRemove?: any,
-  onReorder?: any
+  columnIndex?: number;
+  title?: string;
+  cards?: string[];
+  onAddColumn(obj: IAddColumn): void;
+  onAddCard(obj: IAddCard): void;
+  onRemove?(id: number | undefined): void;
 }
 const Column = ({
   columnIndex,
@@ -22,16 +23,16 @@ const Column = ({
   onAddColumn,
   onAddCard,
   onRemove,
-  onReorder
+  // onReorder,
 }: IColumn) => {
   const removeColumn = () => {
-    if (global.confirm("Вы действительно хотите удалить колонку?")) {
-      onRemove(columnIndex);
+    if (global.confirm("DO YOU REALLY WANT TO REMOVE THIS COLUMN?")) {
+      onRemove && onRemove(columnIndex);
     }
   };
   return cards ? (
     <Droppable type="CARDS" droppableId={`column-${columnIndex}`}>
-      {provided => (
+      {(provided) => (
         <div
           className="column"
           {...provided.droppableProps}
@@ -47,15 +48,18 @@ const Column = ({
               </div>
             )}
             <div className="column__items">
-              {cards.map((card: any, index: number) => (
-                <CardContainer key={index} columnIndex={columnIndex} cardIndex={index}>
+              {cards.map((card: string, index: number) => (
+                <CardContainer
+                  key={index}
+                  columnIndex={columnIndex}
+                  cardIndex={index}
+                >
                   {card}
                 </CardContainer>
               ))}
               {provided.placeholder}
             </div>
             <AddFormContainer
-            children={null}
               isEmptyColumn={false}
               columnIndex={columnIndex}
               onAddColumn={onAddColumn}
@@ -79,4 +83,4 @@ const Column = ({
   );
 };
 
-export default Column
+export default Column;

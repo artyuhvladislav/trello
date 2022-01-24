@@ -1,14 +1,13 @@
-import React from "react";
+import React, { ReactChild } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import clearSvg from "../../assets/clear.svg";
-
 import "./Card.scss";
 
 interface ICard {
   cardIndex?: number,
   columnIndex?: number,
-  children?: any,
-  onRemove?: any
+  children: string | ReactChild,
+  onRemove?: any;  //TO DO
 }
 
 const Card = ({ cardIndex, columnIndex, children, onRemove }: ICard) =>
@@ -26,7 +25,7 @@ const Card = ({ cardIndex, columnIndex, children, onRemove }: ICard) =>
         >
           <span>{children}</span>
           <div
-            onClick={onRemove.bind(this, { columnIndex, cardIndex })}
+            onClick={onRemove && onRemove.bind(this, { columnIndex , cardIndex })}
             className="remove-btn"
           >
             <img src={clearSvg} alt="Clear svg icon" />

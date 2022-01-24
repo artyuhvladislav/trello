@@ -1,17 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
+import React  from "react";
 import { AddForm as AddFormBase } from "../components";
+import { IAddCard, IAddColumn } from "../redux/reduxSlice";
 
 interface IAddFormContainer {
-  columnIndex: any,
-  children?: any,
-  onAddCard: any,
-  onAddColumn: any,
-  isEmptyColumn: any
+  columnIndex?: number,
+  onAddColumn(obj: IAddColumn): void;
+  onAddCard(obj: IAddCard): void;
+  isEmptyColumn: boolean
 }
 
 const AddFormContainer = ({
   columnIndex,
-  children,
   onAddCard,
   onAddColumn,
   isEmptyColumn
@@ -25,14 +24,8 @@ const AddFormContainer = ({
       textareaRef.current.focus();
     }
   }, [showForm]);
-
   
-  const onAdd = (buttonRef: any) => {
-  //  елси клик таргет !== баттон => setshow(false)
-    // debugger;
-    // if(buttonRef.current.contains()){
-    //   alert(123)
-    // }
+  const onAdd = () => {
     if(!value) return
     if (isEmptyColumn) {
       onAddColumn({ title: value, cards: []});

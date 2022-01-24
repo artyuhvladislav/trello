@@ -2,7 +2,13 @@ import { Card } from "../components";
 import { useDispatch } from "react-redux";
 import { IRemoveCard, removeCard } from "../redux/reduxSlice";
 
-const CardContainer = ({ children, columnIndex, cardIndex }: any) => {
+interface ICardContainer {
+  children: string,
+  columnIndex?: number,
+  cardIndex?: number
+}
+const CardContainer = ({ children, columnIndex, cardIndex }: ICardContainer) => {
+
   const dispatch = useDispatch();
 
   const onRemoveCard = (obj: IRemoveCard) => {

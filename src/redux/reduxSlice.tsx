@@ -9,7 +9,7 @@ export interface IColumn {
 }
 
 export interface IAddCard {
-  columnIndex: number;
+  columnIndex?: number;
   value: string;
 }
 export interface IAddColumn {
@@ -25,7 +25,7 @@ interface DraggableLocation {
   droppableId: string;
   index: number;
 }
-interface DragResult {
+export interface DragResult {
   destination?: DraggableLocation;
   source: DraggableLocation;
 }
@@ -41,7 +41,6 @@ export const columnSlice = createSlice({
   name: "column",
   initialState,
   reducers: {
-
     addCard: (state, action: PayloadAction<IAddCard>) => {
       state.items.forEach((item, index) => {
         if (action.payload.columnIndex === index) {
@@ -61,15 +60,14 @@ export const columnSlice = createSlice({
     },
 
     removeCard: (state, action: PayloadAction<IRemoveCard>) => {
-      state.items[action.payload.columnIndex].cards = state.items[
-        action.payload.columnIndex
-      ].cards.filter((item, index) => index !== action.payload.cardIndex);
+        (state.items[action.payload.columnIndex].cards = state.items[
+          action.payload.columnIndex
+        ].cards.filter((_, index) => index !== action.payload.cardIndex));
     },
 
     reorderCards: (state, action: PayloadAction<DragResult>) => {
-  
       const { source, destination } = action.payload;
-  
+
       state.items = reorderCardsHelper({
         state: state.items,
         source,

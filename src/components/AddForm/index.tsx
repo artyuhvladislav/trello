@@ -5,12 +5,12 @@ import clearSvg from "../../assets/clear.svg";
 import "./AddForm.scss";
 
 interface IAddForm {
-  value: any,
-  showForm: any,
-  setValue: any,
-  textareaRef: any,
-  setShowForm: any,
-  onAdd: any,
+  value: string,
+  showForm: boolean,
+  setValue(arg: string): void,
+  textareaRef: any    //TO DO
+  setShowForm(arg: boolean): void,
+  onAdd(): void,
   isEmptyColumn: boolean
 }
 

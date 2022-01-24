@@ -1,4 +1,4 @@
-export default ({ state, source, destination }: any) => {
+ const reorderCardsHelper = ({ state, source, destination }: any) => {
 
   const { index: sourceCardIndex, droppableId: sourceId } = source;
   const {
@@ -23,3 +23,5 @@ export default ({ state, source, destination }: any) => {
     return item;
   });
 };
+
+export default reorderCardsHelper
