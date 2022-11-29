@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import reorderCardsHelper from "../helpers/reorderCardsHelper";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import reorderCardsHelper from '../helpers/reorderCardsHelper';
 
 export interface IColumn {
   items: {
@@ -32,13 +32,13 @@ export interface DragResult {
 
 const initialState: IColumn = {
   items: [
-    { title: "some title", cards: ["first", "second", "first"] },
-    { title: "second title", cards: [] },
+    { title: 'some title', cards: ['first', 'second', 'first'] },
+    { title: 'second title', cards: [] },
   ],
 };
 
 export const columnSlice = createSlice({
-  name: "column",
+  name: 'column',
   initialState,
   reducers: {
     addCard: (state, action: PayloadAction<IAddCard>) => {
@@ -54,15 +54,13 @@ export const columnSlice = createSlice({
     },
 
     removeColumn: (state, action: PayloadAction<number>) => {
-      state.items = state.items.filter(
-        (item, index) => index !== action.payload
-      );
+      state.items = state.items.filter((_, index) => index !== action.payload);
     },
 
     removeCard: (state, action: PayloadAction<IRemoveCard>) => {
-        (state.items[action.payload.columnIndex].cards = state.items[
-          action.payload.columnIndex
-        ].cards.filter((_, index) => index !== action.payload.cardIndex));
+      state.items[action.payload.columnIndex].cards = state.items[
+        action.payload.columnIndex
+      ].cards.filter((_, index) => index !== action.payload.cardIndex);
     },
 
     reorderCards: (state, action: PayloadAction<DragResult>) => {
@@ -77,8 +75,6 @@ export const columnSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { addCard, addColumn, removeColumn, removeCard, reorderCards } =
-  columnSlice.actions;
+export const { addCard, addColumn, removeColumn, removeCard, reorderCards } = columnSlice.actions;
 
 export default columnSlice.reducer;

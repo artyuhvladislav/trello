@@ -1,7 +1,7 @@
-import React from "react";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import { Column } from "../components";
+import React from 'react';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { useDispatch, useSelector } from 'react-redux';
+import { Column } from '../components';
 import {
   addCard,
   removeColumn,
@@ -9,16 +9,9 @@ import {
   IAddCard,
   IAddColumn,
   reorderCards,
-} from "../redux/reduxSlice";
+} from '../redux/reduxSlice';
+import { memoizedItemsSelector } from '../redux/selectors';
 
-interface ISelector {
-  column: {
-    items: {
-      title: string;
-      cards: string[];
-    }[];
-  };
-}
 interface IColumn {
   title: string;
   cards: string[];
@@ -26,14 +19,13 @@ interface IColumn {
 
 const ColumnsContainer = () => {
   const dispatch = useDispatch();
-  const { items } = useSelector(({ column }: ISelector) => column);
+  const { items } = useSelector(memoizedItemsSelector);
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
     if (
       !destination ||
-      (source.droppableId === destination.droppableId &&
-        source.index === destination.index)
+      (source.droppableId === destination.droppableId && source.index === destination.index)
     ) {
       return;
     }
@@ -42,7 +34,7 @@ const ColumnsContainer = () => {
       reorderCards({
         source,
         destination,
-      })
+      }),
     );
   };
 
